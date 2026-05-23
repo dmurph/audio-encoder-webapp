@@ -43,7 +43,7 @@ jobs:
       - name: Prepare deployment folder
         run: |
           mkdir deploy
-          cp index.html manifest.json deploy/
+          cp index.html manifest.json sw.js sw.js.map workbox-*.js workbox-*.js.map deploy/
           cp -r assets dist deploy/
 
       - name: Upload artifact

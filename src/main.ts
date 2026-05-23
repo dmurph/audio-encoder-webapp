@@ -290,3 +290,17 @@ window.addEventListener('appinstalled', () => {
   console.log('PWA was installed');
   installCard.style.display = 'none';
 });
+
+// Service Worker Registration (PWA Offline support)
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker
+      .register('./sw.js')
+      .then((reg) =>
+        console.log('Service Worker registered successfully:', reg.scope)
+      )
+      .catch((err) =>
+        console.error('Service Worker registration failed:', err)
+      );
+  });
+}
