@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Local Audio Converter MVP</title>
+    <link rel="stylesheet" href="dist/styles.css" />
+  </head>
+  <body>
+    <noscript>
+      <div
+        style="
+          background: #f8d7da;
+          color: #721c24;
+          padding: 15px;
+          text-align: center;
+          font-weight: bold;
+          border-bottom: 1px solid #f5c6cb;
+        "
+      >
+        JavaScript is required to run this local audio encoder. Please enable it
+        in your browser.
+      </div>
+    </noscript>
+    <div class="container">
+      <h1>Local Audio Converter MVP</h1>
+
+      <div class="card">
+        <h2>1. Select MP3 File</h2>
+        <input
+          type="file"
+          id="file-input"
+          accept="audio/mp3,audio/mpeg"
+          style="display: none"
+        />
+        <div class="drop-zone" id="drop-zone">
+          <p>Drag & Drop MP3 file here, or click to select</p>
+          <span class="file-name" id="file-name"></span>
+        </div>
+      </div>
+
+      <div class="card" id="convert-section" style="display: none">
+        <h2>2. Configure & Convert</h2>
+
+        <div class="form-group">
+          <label for="format-select">Target Format:</label>
+          <select id="format-select">
+            <option value="mp3">MP3 (Lossy)</option>
+            <option value="wav">WAV (Lossless/Uncompressed)</option>
+          </select>
+        </div>
+
+        <!-- MP3 Options -->
+        <div id="mp3-options" class="encoder-options">
+          <div class="form-group">
+            <label for="mp3-mode">Bitrate Mode:</label>
+            <select id="mp3-mode">
+              <option value="cbr" selected>Constant Bitrate (CBR)</option>
+              <option value="vbr">Variable Bitrate (VBR)</option>
+            </select>
+          </div>
+
+          <div class="form-group" id="mp3-cbr-bitrate-group">
+            <label for="mp3-bitrate">Bitrate:</label>
+            <select id="mp3-bitrate">
+              <option value="96">96 kbps</option>
+              <option value="128" selected>128 kbps</option>
+              <option value="192">192 kbps</option>
+              <option value="256">256 kbps</option>
+              <option value="320">320 kbps</option>
+            </select>
+          </div>
+
+          <div
+            class="form-group"
+            id="mp3-vbr-quality-group"
+            style="display: none"
+          >
+            <label for="mp3-vbr-quality">VBR Quality:</label>
+            <select id="mp3-vbr-quality">
+              <option value="0">V0 (~245 kbps - Extreme)</option>
+              <option value="2" selected>
+                V2 (~190 kbps - High, Recommended)
+              </option>
+              <option value="4">V4 (~165 kbps - Medium)</option>
+              <option value="6">V6 (~130 kbps - Low)</option>
+              <option value="8">V8 (~85 kbps - Very Low)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- WAV Options -->
+        <div id="wav-options" class="encoder-options" style="display: none">
+          <div class="form-group">
+            <label for="wav-depth">Bit Depth:</label>
+            <select id="wav-depth">
+              <option value="16" selected>16-bit PCM</option>
+              <option value="32">32-bit Float</option>
+            </select>
+          </div>
+        </div>
+
+        <button id="convert-btn">Convert</button>
+
+        <div
+          class="progress-container"
+          id="progress-container"
+          style="display: none"
+        >
+          <div class="progress-bar" id="progress-bar"></div>
+          <span id="progress-text">0%</span>
+        </div>
+      </div>
+
+      <div class="card" id="result-section" style="display: none">
+        <h2>3. Download & Preview</h2>
+        <audio id="audio-preview" controls></audio>
+        <br />
+        <a id="download-link" class="btn">Download</a>
+      </div>
+    </div>
+
+    <script type="module" src="dist/main.js"></script>
+  </body>
+</html>

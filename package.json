@@ -1,0 +1,24 @@
+{
+  "name": "audio-encoder-decoder",
+  "version": "1.0.0",
+  "description": "Local audio encoder and decoder",
+  "type": "module",
+  "scripts": {
+    "build": "npm run format && tsc && esbuild src/worker.ts --bundle --outfile=dist/worker.js --format=esm && cp src/styles.css dist/",
+    "build:watch": "tsc --watch",
+    "start": "http-server . -p 8080",
+    "test": "node --import tsx --test tests/**/*.test.ts",
+    "format": "prettier --write \"**/*.{ts,js,html,css}\" \"!dist/**/*\""
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.0",
+    "http-server": "^14.1.1",
+    "playwright": "^1.60.0",
+    "prettier": "^3.8.3",
+    "tsx": "^4.22.3",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "wasm-media-encoders": "^0.7.0"
+  }
+}
