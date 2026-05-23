@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Local Audio Converter MVP</title>
     <link rel="stylesheet" href="dist/styles.css" />
+    <link rel="manifest" href="manifest.json" />
   </head>
   <body>
     <noscript>
@@ -24,6 +25,11 @@
     </noscript>
     <div class="container">
       <h1>Local Audio Converter MVP</h1>
+
+      <div class="card install-card" id="install-card" style="display: none">
+        <p>Install this app on your device for offline use and quick access!</p>
+        <button id="install-btn" class="btn">Install App</button>
+      </div>
 
       <div class="card">
         <h2>1. Select MP3 File</h2>

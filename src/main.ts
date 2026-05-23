@@ -231,3 +231,55 @@ function updateProgress(percent: number) {
   progressBar.style.width = `${percent}%`;
   progressText.textContent = `${Math.round(percent)}%`;
 }
+
+// PWA Installation
+let deferredPrompt: any;
+const installCard = document.getElementById('install-card') as HTMLDivElement;
+const installBtn = document.getElementById('install-btn') as HTMLButtonElement;
+
+function isStandalone(): boolean {
+  return (
+    window.matchMedia('(display-mode: standalone)').matches ||
+    (window.navigator as any).standalone === true
+  );
+}
+
+async function shouldShowInstallPrompt(): Promise<boolean> {
+  if (isStandalone()) {
+    return false;
+  }
+  if ('getInstalledRelatedApps' in navigator) {
+    try {
+      const relatedApps = await (navigator as any).getInstalledRelatedApps();
+      if (relatedApps.length > 0) {
+        return false;
+      }
+    } catch (err) {
+      console.error('Error checking installed apps:', err);
+    }
+  }
+  return true;
+}
+
+window.addEventListener('beforeinstallprompt', async (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  const showPrompt = await shouldShowInstallPrompt();
+  if (showPrompt) {
+    installCard.style.display = 'flex';
+  }
+});
+
+installBtn.addEventListener('click', async () => {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  const { outcome } = await deferredPrompt.userChoice;
+  console.log(`User response to the install prompt: ${outcome}`);
+  deferredPrompt = null;
+  installCard.style.display = 'none';
+});
+
+window.addEventListener('appinstalled', () => {
+  console.log('PWA was installed');
+  installCard.style.display = 'none';
+});
