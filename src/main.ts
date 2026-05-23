@@ -236,6 +236,9 @@ function updateProgress(percent: number) {
 let deferredPrompt: any;
 const installCard = document.getElementById('install-card') as HTMLDivElement;
 const installBtn = document.getElementById('install-btn') as HTMLButtonElement;
+const installCloseBtn = document.getElementById(
+  'install-close-btn'
+) as HTMLButtonElement;
 
 function isStandalone(): boolean {
   return (
@@ -276,6 +279,10 @@ installBtn.addEventListener('click', async () => {
   const { outcome } = await deferredPrompt.userChoice;
   console.log(`User response to the install prompt: ${outcome}`);
   deferredPrompt = null;
+  installCard.style.display = 'none';
+});
+
+installCloseBtn.addEventListener('click', () => {
   installCard.style.display = 'none';
 });
 
