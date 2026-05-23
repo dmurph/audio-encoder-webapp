@@ -8,9 +8,11 @@
     "build:watch": "tsc --watch",
     "start": "http-server . -p 8080",
     "test": "node --import tsx --test tests/**/*.test.ts",
+    "test:integration": "playwright test",
     "format": "prettier --write \"**/*.{ts,js,html,css}\" \"!dist/**/*\""
   },
   "devDependencies": {
+    "@playwright/test": "^1.60.0",
     "esbuild": "^0.28.0",
     "http-server": "^14.1.1",
     "playwright": "^1.60.0",
